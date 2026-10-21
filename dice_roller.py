@@ -1,21 +1,7 @@
-"""
-Dice Roller Simulation
-----------------------
-A menu-driven mini project that simulates rolling dice using basic Python.
-
-Python concepts used:
-variables, input/output, data types, operators, if/elif/else,
-while and for loops, functions, lists, dictionaries,
-the random module, string formatting, try/except (error handling).
-"""
-
 import random
 
 
-# ---------- Helper functions ----------
-
 def get_number(message, minimum, maximum):
-    """Keep asking until the user enters a whole number in the given range."""
     while True:
         try:
             value = int(input(message))
@@ -27,12 +13,10 @@ def get_number(message, minimum, maximum):
 
 
 def roll_die(sides):
-    """Roll one die with the given number of sides."""
     return random.randint(1, sides)
 
 
 def draw_die(number):
-    """Print a small ASCII picture of a standard 6-sided die face."""
     faces = {
         1: ["+-------+", "|       |", "|   *   |", "|       |", "+-------+"],
         2: ["+-------+", "| *     |", "|       |", "|     * |", "+-------+"],
@@ -45,10 +29,7 @@ def draw_die(number):
         print(line)
 
 
-# ---------- Menu options ----------
-
 def roll_one(history, sides):
-    """Option 1: roll a single die."""
     result = roll_die(sides)
     history.append(result)
     print(f"\nYou rolled: {result}")
@@ -57,7 +38,6 @@ def roll_one(history, sides):
 
 
 def roll_many(history, sides):
-    """Option 2: roll several dice at once and show the total."""
     count = get_number("How many dice do you want to roll (1-10)? ", 1, 10)
     results = []
     for _ in range(count):
@@ -69,10 +49,9 @@ def roll_many(history, sides):
 
 
 def simulate(sides):
-    """Option 3: roll the die many times and show how often each side came up."""
     times = get_number("How many times to roll (1-10000)? ", 1, 10000)
 
-    frequency = {}                      # dictionary: side -> count
+    frequency = {}
     for side in range(1, sides + 1):
         frequency[side] = 0
 
@@ -84,12 +63,11 @@ def simulate(sides):
     for side in frequency:
         count = frequency[side]
         percent = count / times * 100
-        bar = "#" * int(percent)        # simple text bar chart
+        bar = "#" * int(percent)
         print(f"Side {side:>2}: {count:>5} ({percent:5.1f}%) {bar}")
 
 
 def show_history(history):
-    """Option 4: show all rolls and some simple statistics."""
     if len(history) == 0:
         print("\nNo rolls yet. Roll a die first!")
         return
@@ -101,13 +79,10 @@ def show_history(history):
 
 
 def change_sides(current):
-    """Option 5: change the number of sides of the die."""
     new_sides = get_number("Enter number of sides (2-100): ", 2, 100)
     print(f"Die changed to {new_sides} sides.")
     return new_sides
 
-
-# ---------- Main program ----------
 
 def main():
     print("=" * 40)
